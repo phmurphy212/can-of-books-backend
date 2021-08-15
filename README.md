@@ -1,11 +1,32 @@
-# Start your own "Can of Books" App
+# Can of Books
 
-This repository has starter code to begin work on creating your own online bookshelf.
+**Author**: Phil Murphy
 
-## What can books do?
+**Version**:
 
-Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
+## Overview
+Online Bookshelf
 
-## Use this template
+## Getting Started
+<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
-Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
+## Architecture
+
+
+## Change Log
+
+## Credit and Collaborations
+
+* Alex Payne
+
+____________________________
+
+Name of feature: Lab 11
+
+Estimate of time needed to complete: 5 hours
+
+Start time: 2:45
+
+Finish time: 6:00
+
+Actual time needed to complete: 3:15
