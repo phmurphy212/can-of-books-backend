@@ -2,22 +2,27 @@
 
 **Author**: Phil Murphy
 
-**Version**:
-
 ## Overview
-Online Bookshelf
+
+This app is supposed to I guess let you add some books to a favorites list. Eventually it'll store them in a DB and be able to be recalled later, perhaps
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+
+The only thing in my .env is PORT=
 
 ## Architecture
 
+[UML](uml_for_auth0.png)
 
 ## Change Log
+
+This is the first part of it, so far no change log to report
 
 ## Credit and Collaborations
 
 * Alex Payne
+* JP Jones
+* Charlie Fadness
 
 ____________________________
 
