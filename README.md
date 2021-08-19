@@ -12,7 +12,9 @@ The only thing in my .env is PORT=
 
 ## Architecture
 
-[UML](uml_for_auth0.png)
+* [UML with Auth0](umls/uml_for_auth0.png)
+
+* [UML with Auth0 and Mongo](umls/uml-auth0-mongo.png)
 
 ## Change Log
 
