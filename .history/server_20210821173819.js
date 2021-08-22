@@ -83,10 +83,10 @@ app.post('/books', (request, response) => {
 
 app.delete('/books/:id', async (request, response) => {
   let bookId = request.query.id;
-  console.log(bookId);
+  // console.log(bookId);
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
-  console.log(booksdb);
+  // console.log(booksdb);
   response.send(`successfully deleted`);
 })
 
