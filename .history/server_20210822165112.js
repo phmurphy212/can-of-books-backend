@@ -64,9 +64,11 @@ app.get('/profile', (request, response) => {
 });
 
 app.get('/books', (request, response) => {
+  console.log('i am here');
   try {
     const token = request.headers.authorization.split(' ')[1];
     const email = request.query.email;
+    console.log(`email: ${email}`)
     // the second part is from jet docs
     jwt.verify(token, getKey, {}, function (err, user) {
       if (err) {
@@ -92,8 +94,10 @@ app.post('/books', (request, response) => {
 
 app.delete('/books/:id', async (request, response) => {
   let bookId = request.query.id;
+  console.log(bookId);
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
+  console.log(booksdb);
   response.send(`successfully deleted`);
 })
 
@@ -115,7 +119,7 @@ async function clear(request, response) {
 
 function seed(request, response) {
   let books = BookModel.find({});
-  if (books.length < 3) {
+  if (books.length === 0) {
     let book1 = new BookModel({ title: 'Playing For Keeps', email: 'phillipdeanmurphy@gmail.com', description: 'David Halberstam describes Michael Jordan after his second retirement from the NBA. He discusses his relationships with the likes of Phil Jackson, Scottie Pippen, and other people of within the Chicago Bulls dynasty', status: 'FAVORITE FIVE' });
     book1.save();
     // await addBook();

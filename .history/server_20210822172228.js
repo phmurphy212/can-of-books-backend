@@ -64,9 +64,11 @@ app.get('/profile', (request, response) => {
 });
 
 app.get('/books', (request, response) => {
+  console.log('i am here');
   try {
     const token = request.headers.authorization.split(' ')[1];
     const email = request.query.email;
+    console.log(`email: ${email}`)
     // the second part is from jet docs
     jwt.verify(token, getKey, {}, function (err, user) {
       if (err) {
@@ -92,8 +94,10 @@ app.post('/books', (request, response) => {
 
 app.delete('/books/:id', async (request, response) => {
   let bookId = request.query.id;
+  console.log(bookId);
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
+  console.log(booksdb);
   response.send(`successfully deleted`);
 })
 
