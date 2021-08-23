@@ -71,8 +71,10 @@ app.get('/books', (request, response) => {
     jwt.verify(token, getKey, {}, function (err, user) {
       if (err) {
         response.status(500).send('invalid token');
+      } else if (user.email !== email){
+        response.status(404).send('Not Authorized')
       }
-      BookModel.find({ email }, (error, booksData) => {
+      BookModel.find({email}, (error, booksData)=> {
         response.status(200).send(booksData);
       });
     });
@@ -84,7 +86,7 @@ app.get('/books', (request, response) => {
 
 app.post('/books', (request, response) => {
   let { title, status, description, email } = request.body;
-  let newBook = new BookModel({ title, status, description, email });
+  let newBook = new BookModel({title, status, description, email});
   newBook.save();
 
   response.send(newBook);
@@ -92,8 +94,10 @@ app.post('/books', (request, response) => {
 
 app.delete('/books/:id', async (request, response) => {
   let bookId = request.query.id;
+  console.log(bookId);
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
+  console.log(booksdb);
   response.send(`successfully deleted`);
 })
 
@@ -113,14 +117,12 @@ async function clear(request, response) {
   }
 }
 
-function seed(request, response) {
-  let books = BookModel.find({});
-  if (books.length < 3) {
-    let book1 = new BookModel({ title: 'Playing For Keeps', email: 'phillipdeanmurphy@gmail.com', description: 'David Halberstam describes Michael Jordan after his second retirement from the NBA. He discusses his relationships with the likes of Phil Jackson, Scottie Pippen, and other people of within the Chicago Bulls dynasty', status: 'FAVORITE FIVE' });
-    book1.save();
-    // await addBook();
-    // await addBook({ title: 'The Jordan Rules', email: 'phillipdeanmurphy@gmail.com', description: 'Sam Smith goes into a lot of the darker elements of Michael Jordan\'s life and career. He discusses gambling, anger, and some of the parts of Michael Jordan that didn\'t make it to the public eye', status: 'FAVORITE FIVE' });
-    // await addBook({ title: 'The Book of Basketball', email: 'phillipdeanmurphy@gmail.com', description: 'Bill Simmons breaks down the top 100 NBA players of all time. He splits the top 1-- into several different levels on his pyramid of greatness. At the top of the period lies the pantheon, the greatest of the greatest playrs of all time', status: 'FAVORITE FIVE' });
+async function seed(request, response) {
+  let books = await BookModel.find({});
+  if (books.length === 0) {
+    await addBook({ title: 'Playing For Keeps', email: 'phillipdeanmurphy@gmail.com', description: 'David Halberstam describes Michael Jordan after his second retirement from the NBA. He discusses his relationships with the likes of Phil Jackson, Scottie Pippen, and other people of within the Chicago Bulls dynasty', status: 'FAVORITE FIVE' });
+    await addBook({ title: 'The Jordan Rules', email: 'phillipdeanmurphy@gmail.com', description: 'Sam Smith goes into a lot of the darker elements of Michael Jordan\'s life and career. He discusses gambling, anger, and some of the parts of Michael Jordan that didn\'t make it to the public eye', status: 'FAVORITE FIVE' });
+    await addBook({ title: 'The Book of Basketball', email: 'phillipdeanmurphy@gmail.com', description: 'Bill Simmons breaks down the top 100 NBA players of all time. He splits the top 1-- into several different levels on his pyramid of greatness. At the top of the period lies the pantheon, the greatest of the greatest playrs of all time', status: 'FAVORITE FIVE' });
   }
   response.send('Seeded The Database');
 }
