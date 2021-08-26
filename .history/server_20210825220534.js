@@ -91,7 +91,7 @@ app.post('/books', (request, response) => {
 })
 
 app.delete('/books/:id', async (request, response) => {
-  let bookId = request.params.id;
+  let bookId = request.query.id;
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
   response.send(`successfully deleted`);

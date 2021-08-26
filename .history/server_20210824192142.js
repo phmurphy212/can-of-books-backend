@@ -91,22 +91,17 @@ app.post('/books', (request, response) => {
 })
 
 app.delete('/books/:id', async (request, response) => {
-  let bookId = request.params.id;
+  let bookId = request.query.id;
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
   response.send(`successfully deleted`);
 })
 
-app.put('/books/:id', async (request, response) => {
-  try {
-    let bookId = request.params.id;
-    let { title, status, description, email } = request.body;
-    console.log('req body:', request.body)
-    const updateBooks = await BookModel.findByIdAndUpdate(bookId, { title, status, description, email }, { new: true, overwrite: true });
-    response.status(200).send(updateBooks);
-  } catch (error) {
-    response.status(500).send('Update Failed');
-  }
+app.put('/books/:id', (request, response) => {
+  let bookId = request.query.id;
+  let { title, status, description, email } = request.body;
+  const updateBooks = await BookModel.findByIdAndUpdate(bookId, {title, status, description, email}, {new: true, overwrite=true});
+  response.status(200).send(updatedBooks);
 })
 
 
@@ -130,7 +125,7 @@ function seed(request, response) {
   if (books.length < 3) {
     let book1 = new BookModel({ title: 'Playing For Keeps', email: 'phillipdeanmurphy@gmail.com', description: 'David Halberstam describes Michael Jordan after his second retirement from the NBA. He discusses his relationships with the likes of Phil Jackson, Scottie Pippen, and other people of within the Chicago Bulls dynasty', status: 'FAVORITE FIVE' });
     book1.save();
-
+    
     let book2 = new BookModel({ title: 'The Jordan Rules', email: 'phillipdeanmurphy@gmail.com', description: 'Sam Smith goes into a lot of the darker elements of Michael Jordan\'s life and career. He discusses gambling, anger, and some of the parts of Michael Jordan that didn\'t make it to the public eye', status: 'FAVORITE FIVE' });
     book2.save();
 
