@@ -91,7 +91,7 @@ app.post('/books', (request, response) => {
 })
 
 app.delete('/books/:id', async (request, response) => {
-  let bookId = request.params.id;
+  let bookId = request.query.id;
   await BookModel.findByIdAndDelete(bookId);
   let booksdb = await BookModel.find({});
   response.send(`successfully deleted`);
@@ -99,11 +99,11 @@ app.delete('/books/:id', async (request, response) => {
 
 app.put('/books/:id', async (request, response) => {
   try {
-    let bookId = request.params.id;
+    let bookId = request.query.id;
     let { title, status, description, email } = request.body;
-    console.log('req body:', request.body)
     const updateBooks = await BookModel.findByIdAndUpdate(bookId, { title, status, description, email }, { new: true, overwrite: true });
-    response.status(200).send(updateBooks);
+    console.log(bookId);
+    response.status(200).send(updatedBooks);
   } catch (error) {
     response.status(500).send('Update Failed');
   }
